@@ -114,9 +114,9 @@ const messageText = ref(null); // Holds the text for the message
 const messageType = ref(null); // Holds 'success' or 'error' for styling
 
 // EmailJS credentials (replace with environment variables in production)
-const SERVICE_ID = "service_c9mvwmf";
-const TEMPLATE_ID = "template_rg0dxwx";
-const PUBLIC_KEY = "b2a_iFqgCAGz-aaiS";
+const SERVICE_ID = "service_561nn49";
+const TEMPLATE_ID = "template_8if1w4s";
+const PUBLIC_KEY = "vXbEqDiEeJw0Q8jCb";
 
 const form = reactive({
   name: "",
@@ -130,7 +130,7 @@ const submitForm = async () => {
   messageText.value = null; // Clear previous messages
 
   try {
-    await emailjs.send(
+    const data= await emailjs.send(
       SERVICE_ID,
       TEMPLATE_ID,
       {
@@ -140,6 +140,7 @@ const submitForm = async () => {
       },
       PUBLIC_KEY
     );
+console.log(data);
 
     submitText.value = "Message Sent!";
     messageType.value = "success";
