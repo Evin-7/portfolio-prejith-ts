@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalized Diet Plan</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    #app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #333;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      border-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(253, 203, 110, 0.3);
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #2d3436;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    }
+
+    .subtitle {
+      font-size: 1.2em;
+      color: #636e72;
+      font-weight: 500;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .form-section h2 {
+      color: #00b894;
+      margin-bottom: 30px;
+      font-size: 2em;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+      font-size: 1.1em;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    input[type="number"]:focus, select:focus {
+      outline: none;
+      border-color: #00b894;
+      box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.1);
+    }
+
+    .unit-selector {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .unit-btn {
+      padding: 8px 20px;
+      border: 2px solid #00b894;
+      background: white;
+      color: #00b894;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1em;
+    }
+
+    .unit-btn.active {
+      background: #00b894;
+      color: white;
+    }
+
+    .unit-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 184, 148, 0.4);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .diet-plan {
+      margin-top: 30px;
+    }
+
+    .diet-plan h3 {
+      color: #00b894;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    .bmi-display {
+      background: linear-gradient(135deg, #fdcb6e 0%, #ffeaa7 100%);
+      color: #2d3436;
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(253, 203, 110, 0.3);
+    }
+
+    .bmi-value {
+      font-size: 3em;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .bmi-category {
+      font-size: 1.3em;
+      margin-top: 10px;
+    }
+
+    .meal-section {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 12px;
+      border-left: 5px solid #00b894;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .meal-section h4 {
+      color: #00b894;
+      margin-bottom: 12px;
+      font-size: 1.4em;
+    }
+
+    .meal-section ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .meal-section li {
+      padding: 8px 0;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .meal-section li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #00b894;
+      font-weight: bold;
+    }
+
+    .faq-section {
+      margin-top: 50px;
+    }
+
+    .faq-section h2 {
+      color: #00b894;
+      margin-bottom: 30px;
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 20px;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .faq-item:hover {
+      border-color: #00b894;
+      box-shadow: 0 2px 10px rgba(0, 184, 148, 0.1);
+    }
+
+    .faq-question {
+      padding: 20px;
+      background: #f0fdf4;
+      cursor: pointer;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+
+    .faq-question:hover {
+      background: #dcfce7;
+    }
+
+    .faq-toggle {
+      font-size: 1.5em;
+      color: #00b894;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-toggle.open {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: white;
+    }
+
+    .faq-answer.open {
+      padding: 20px;
+      max-height: 500px;
+    }
+
+    .contact-section {
+      background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+      color: white;
+      padding: 50px 40px;
+      border-radius: 20px;
+      text-align: center;
+      margin-top: 50px;
+      box-shadow: 0 10px 40px rgba(0, 184, 148, 0.3);
+    }
+
+    .contact-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-icon {
+      font-size: 2em;
+    }
+
+    .contact-item a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1em;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-item a:hover {
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .card {
+        padding: 25px;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>🥗 Personalized Diet Plan</h1>
+      <p class="subtitle">Personalized nutrition to help manage your migraines</p>
+    </header>
+
+    <div class="card form-section">
+      <h2>Get Your Personalized Diet Plan</h2>
+      
+      <form @submit.prevent="generateDietPlan">
+        <div class="form-group">
+          <label for="height">Height</label>
+          <input 
+            type="number" 
+            id="height" 
+            v-model="height" 
+            :placeholder="heightUnit === 'cm' ? 'Enter height in cm' : 'Enter height in inches'"
+            required
+            step="0.1"
+            min="0"
+          >
+          <div class="unit-selector">
+            <button 
+              type="button" 
+              class="unit-btn" 
+              :class="{ active: heightUnit === 'cm' }"
+              @click="heightUnit = 'cm'"
+            >
+              Centimeters
+            </button>
+            <button 
+              type="button" 
+              class="unit-btn" 
+              :class="{ active: heightUnit === 'inches' }"
+              @click="heightUnit = 'inches'"
+            >
+              Inches
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input 
+            type="number" 
+            id="weight" 
+            v-model="weight" 
+            :placeholder="weightUnit === 'kg' ? 'Enter weight in kg' : 'Enter weight in lbs'"
+            required
+            step="0.1"
+            min="0"
+          >
+          <div class="unit-selector">
+            <button 
+              type="button" 
+              class="unit-btn" 
+              :class="{ active: weightUnit === 'kg' }"
+              @click="weightUnit = 'kg'"
+            >
+              Kilograms
+            </button>
+            <button 
+              type="button" 
+              class="unit-btn" 
+              :class="{ active: weightUnit === 'lbs' }"
+              @click="weightUnit = 'lbs'"
+            >
+              Pounds
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">Generate My Diet Plan</button>
+      </form>
+
+      <div v-if="showPlan" class="diet-plan">
+        <div class="bmi-display">
+          <div>Your BMI</div>
+          <div class="bmi-value">{{ bmi }}</div>
+          <div class="bmi-category">{{ bmiCategory }}</div>
+        </div>
+
+        <h3>Your Migraine-Friendly Diet Plan</h3>
+        
+        <div class="meal-section">
+          <h4>🌅 Breakfast (8:00 AM)</h4>
+          <ul>
+            <li>Oatmeal with fresh berries and almonds</li>
+            <li>Herbal tea (ginger or chamomile)</li>
+            <li>Banana for potassium</li>
+            <li>Avoid: Aged cheese, processed meats, citrus fruits</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>🥗 Mid-Morning Snack (10:30 AM)</h4>
+          <ul>
+            <li>Handful of unsalted nuts (walnuts or cashews)</li>
+            <li>Fresh apple or pear</li>
+            <li>Plenty of water</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>🍽️ Lunch (1:00 PM)</h4>
+          <ul>
+            <li>Grilled chicken or fish with quinoa</li>
+            <li>Steamed vegetables (broccoli, carrots, spinach)</li>
+            <li>Brown rice or sweet potato</li>
+            <li>Fresh salad with olive oil dressing</li>
+            <li>Avoid: MSG, artificial sweeteners, fermented foods</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>🍎 Evening Snack (4:00 PM)</h4>
+          <ul>
+            <li>Greek yogurt with honey</li>
+            <li>Whole grain crackers</li>
+            <li>Herbal tea</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>🌙 Dinner (7:00 PM)</h4>
+          <ul>
+            <li>Baked salmon or tofu</li>
+            <li>Roasted vegetables</li>
+            <li>Wild rice or whole wheat pasta</li>
+            <li>Mixed green salad</li>
+            <li>Avoid: Chocolate, alcohol, caffeine after 3 PM</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>💧 Hydration Tips</h4>
+          <ul>
+            <li>Drink 8-10 glasses of water daily</li>
+            <li>Avoid caffeinated beverages</li>
+            <li>Limit alcohol consumption</li>
+            <li>Stay consistent with meal times</li>
+          </ul>
+        </div>
+
+        <div class="meal-section">
+          <h4>⚠️ Foods to Avoid for Migraine Prevention</h4>
+          <ul>
+            <li>Aged cheeses (cheddar, blue cheese, parmesan)</li>
+            <li>Processed meats (bacon, hot dogs, deli meats)</li>
+            <li>Foods with MSG or artificial sweeteners</li>
+            <li>Alcohol, especially red wine</li>
+            <li>Chocolate and excessive caffeine</li>
+            <li>Pickled or fermented foods</li>
+            <li>Citrus fruits (for some people)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item" v-for="(faq, index) in faqs" :key="index">
+        <div class="faq-question" @click="toggleFaq(index)">
+          <span>{{ faq.question }}</span>
+          <span class="faq-toggle" :class="{ open: faq.open }">▼</span>
+        </div>
+        <div class="faq-answer" :class="{ open: faq.open }">
+          {{ faq.answer }}
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-section">
+      <h2>Contact Us</h2>
+      <p style="font-size: 1.2em; margin-bottom: 10px;">Have questions about your diet plan?</p>
+      <p>We're here to help you on your journey to better health!</p>
+      
+      <div class="contact-info">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <a href="mailto:info@migrainediet.com">info@migrainediet.com</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <a href="tel:+1234567890">+1 (234) 567-890</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💬</div>
+          <div style="color: white;">Available Mon-Fri, 9AM-6PM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        height: '',
+        weight: '',
+        heightUnit: 'cm',
+        weightUnit: 'kg',
+        showPlan: false,
+        bmi: 0,
+        bmiCategory: '',
+        faqs: [
+          {
+            question: 'How does diet affect migraines?',
+            answer: 'Certain foods and drinks can trigger migraines by affecting neurotransmitters, blood vessel dilation, or causing inflammation. Common triggers include aged cheeses, processed meats, alcohol, and foods with MSG. Maintaining regular meal times and staying hydrated can also help prevent migraines.',
+            open: false
+          },
+          {
+            question: 'How long before I see results?',
+            answer: 'Most people notice improvements within 2-4 weeks of following a migraine-friendly diet consistently. Keep a food diary to track triggers and improvements. Remember that diet is just one factor, and results vary by individual.',
+            open: false
+          },
+          {
+            question: 'Can I customize this diet plan?',
+            answer: 'Yes! This is a general guide. You should adjust it based on your specific triggers, preferences, and nutritional needs. Consider working with a nutritionist or healthcare provider to personalize your plan further.',
+            open: false
+          },
+          {
+            question: 'Should I eliminate all trigger foods at once?',
+            answer: 'It\'s better to eliminate suspected triggers one at a time over 2-3 weeks. This helps you identify which foods specifically affect you. Keep a detailed food and migraine diary to track patterns.',
+            open: false
+          },
+          {
+            question: 'How important is meal timing?',
+            answer: 'Very important! Skipping meals or irregular eating patterns can trigger migraines. Try to eat at consistent times each day and never skip breakfast. Low blood sugar is a common migraine trigger.',
+            open: false
+          }
+        ]
+      },
+      methods: {
+        generateDietPlan() {
+          // Convert to metric for BMI calculation
+          let heightInMeters = this.heightUnit === 'cm' 
+            ? this.height / 100 
+            : (this.height * 2.54) / 100;
+          
+          let weightInKg = this.weightUnit === 'kg' 
+            ? this.weight 
+            : this.weight * 0.453592;
+
+          // Calculate BMI
+          this.bmi = (weightInKg / (heightInMeters * heightInMeters)).toFixed(1);
+
+          // Determine BMI category
+          if (this.bmi < 18.5) {
+            this.bmiCategory = 'Underweight';
+          } else if (this.bmi >= 18.5 && this.bmi < 25) {
+            this.bmiCategory = 'Normal weight';
+          } else if (this.bmi >= 25 && this.bmi < 30) {
+            this.bmiCategory = 'Overweight';
+          } else {
+            this.bmiCategory = 'Obese';
+          }
+
+          this.showPlan = true;
+
+          // Smooth scroll to diet plan
+          this.$nextTick(() => {
+            const dietPlan = document.querySelector('.diet-plan');
+            if (dietPlan) {
+              dietPlan.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        },
+        toggleFaq(index) {
+          this.faqs[index].open = !this.faqs[index].open;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

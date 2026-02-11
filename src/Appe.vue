@@ -54,7 +54,7 @@
         </div>
            <div class="hero-image">
           <div class="image-frame">
-            <img src="./assets/images/chrystoopic.jpeg" alt="Prejith T S" class="profile-image" />
+            <img src="./assets/images/chrystoooonew.jpeg" alt="Prejith T S" class="profile-image" />
             <div class="image-glow"></div>
           </div>
         </div>
@@ -450,7 +450,7 @@ Beyond campaigns, I'm committed to continuous learning and staying updated with 
             <p>&copy; 2024 Christo George. All rights reserved.</p>
           </div>
           <div class="footer-social">
-            <a href="https://linkedin.com/in/christo-george" target="_blank" class="footer-link">
+            <a href="https://www.linkedin.com/in/christo-george-digital-marketer/" target="_blank" class="footer-link">
               <i class="fab fa-linkedin"></i>
             </a>
             <a href="mailto:christo4747@gmail.com" class="footer-link">

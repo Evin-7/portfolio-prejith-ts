@@ -1758,3 +1758,1032 @@ body {
   }
 }
 </style>
+//before addingg the drawer 
+
+
+
+<template>
+  <div id="app">
+    <!-- Header/Navigation -->
+    <header class="header">
+      <div class="container">
+        <nav class="nav">
+          <div class="logo">
+            <img src="./assets/images/deviimage.jpg" alt="Om" class="om-icon" />
+            <h1>ശ്രീ അന്നപൂർണേശ്വരി ഭദ്രകാളി ഗുരുദേവ ക്ഷേത്രം</h1>
+          </div>
+          <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#poojas">Poojas</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#events">Events</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="decorative-border top"></div>
+        <h2 class="temple-name-english">Sree Annapoorneshwary Bhathra Kali Guru Deva Temple</h2>
+        <p class="location">Vellaramkunnu</p>
+        <div class="decorative-border bottom"></div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>About the Temple</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+        <div class="about-content">
+          <div class="about-image">
+            <img src="./assets/images/deviimage.jpg" alt="Temple" />
+          </div>
+          <div class="about-text">
+            <p>
+              Sree Annapoorneshwary Bhathra Kali Guru Deva Temple at Vellaramkunnu is a sacred 
+              abode of divine grace and spiritual enlightenment. The temple is dedicated to 
+              Goddess Annapoorneshwary and Bhadrakali, embodying the supreme power of the Divine Mother.
+            </p>
+            <p>
+              Devotees from far and wide visit this holy shrine seeking blessings, peace, and 
+              prosperity. The temple radiates positive energy and provides solace to all who 
+              enter with devotion and faith.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timings Section -->
+    <section class="timings">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>Temple Timings</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+        <div class="timings-grid">
+          <div class="timing-card">
+            <div class="timing-icon">🌅</div>
+            <h3>Morning Darshan</h3>
+            <p class="time">5:30 AM - 10:30 AM</p>
+            <p class="description">Morning pooja and darshan</p>
+          </div>
+          <div class="timing-card">
+            <div class="timing-icon">🌆</div>
+            <h3>Evening Darshan</h3>
+            <p class="time">5:00 PM - 8:30 PM</p>
+            <p class="description">Evening pooja and darshan</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Poojas Section -->
+    <section id="poojas" class="poojas">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>Poojas & Offerings</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+        <div class="poojas-grid">
+          <div v-for="pooja in poojas" :key="pooja.id" class="pooja-card">
+            <div class="pooja-icon">{{ pooja.icon }}</div>
+            <h3>{{ pooja.name }}</h3>
+            <p>{{ pooja.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>Temple Gallery</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+        <div class="gallery-grid">
+          <div v-for="(image, index) in displayedImages" :key="index" class="gallery-item">
+  <img 
+    v-if="index === 0"
+    src="./assets/images/templephotos/img6.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+  <img 
+    v-else-if="index === 1"
+    src="./assets/images/templephotos/img2.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 2"
+    src="./assets/images/templephotos/img3.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 3"
+    src="./assets/images/templephotos/img4.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 4"
+    src="./assets/images/templephotos/img5.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 5"
+    src="./assets/images/templephotos/img6.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 6"
+    src="./assets/images/templephotos/img7.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 7"
+    src="./assets/images/templephotos/img8.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 8"
+    src="./assets/images/templephotos/img1.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 9"
+    src="./assets/images/templephotos/img10.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 10"
+    src="./assets/images/templephotos/img11.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 11"
+    src="./assets/images/templephotos/img12.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 12"
+    src="./assets/images/templephotos/img13.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+    <img 
+    v-else-if="index === 13"
+    src="./assets/images/templephotos/img2.jpeg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+  
+
+
+  <img 
+    v-else
+    src="./assets/images/deviimage.jpg" 
+    :alt="image.alt" 
+    @click="openLightbox(index)" 
+  />
+  <div class="gallery-overlay">
+    <span class="gallery-title">{{ image.alt }}</span>
+  </div>
+</div>
+        </div>
+        <div class="gallery-actions">
+          <button v-if="!showAllImages" @click="showAllImages = true" class="view-more-btn">
+            View More
+          </button>
+          <button v-if="showAllImages" @click="showAllImages = false" class="view-more-btn">
+            Show Less
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Modal -->
+    <div v-if="lightboxOpen" class="lightbox" @click="closeLightbox">
+      <span class="lightbox-close">&times;</span>
+      <img :src="galleryImages[currentImageIndex].src" :alt="galleryImages[currentImageIndex].alt" class="lightbox-content" />
+      <button class="lightbox-prev" @click.stop="prevImage">❮</button>
+      <button class="lightbox-next" @click.stop="nextImage">❯</button>
+      <div class="lightbox-caption">{{ galleryImages[currentImageIndex].alt }}</div>
+    </div>
+
+    <!-- Events Section -->
+    <section id="events" class="events">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>Major Festivals & Events</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+
+        <div class="events-grid">
+          <div v-for="event in events" :key="event.id" class="event-card">
+            <div class="event-image">
+              <img v-if="event.name === 'Navarathri'" src="./assets/images/deviimage.jpg" :alt="event.name" />
+              <img v-else-if="event.name === 'Vishu'" src="./assets/images/vishukani.png" :alt="event.name" />
+              <img v-else-if="event.name === 'Thiruvathira'" src="./assets/images/deviimage.jpg" :alt="event.name" />
+              <img v-else src="./assets/images/deviimage.jpg" :alt="event.name" />
+            </div>
+            <div class="event-content">
+              <h3>{{ event.name }}</h3>
+              <p>{{ event.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-header">
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+          <h2>Contact Us</h2>
+          <img src="./assets/images/deviimage.jpg" alt="" class="decorative-line" />
+        </div>
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div>
+                <h3>Location</h3>
+                <p>Vellaramkunnu</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div>
+                <h3>Phone</h3>
+                <p>8080808080</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">🕉️</div>
+              <div>
+                <h3>Daily Schedule</h3>
+                <p>Morning Pooja: 5:30 AM</p>
+                <p>Evening Pooja: 5:00 PM</p>
+              </div>
+            </div>
+          </div>
+          <div class="map-placeholder">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1000!2d77.1056275!3d9.6281446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0:0x0!2z9.6281446,77.1056275!5e0!3m2!1sen!2sin!4v0"
+              width="100%" 
+              height="400" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2025 Sree Annapoorneshwary Bhathra Kali Guru Deva Temple, Vellaramkunnu</p>
+        <p>All Rights Reserved</p>
+      </div>
+    </footer>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      showAllImages: false,
+      lightboxOpen: false,
+      currentImageIndex: 0,
+      galleryImages: [
+        { src: './assets/images/deviimage.jpg', alt: 'Temple Sanctum' },
+        { src: './assets/images/deviimage.jpg', alt: 'Morning Pooja' },
+        { src: './assets/images/deviimage.jpg', alt: 'Goddess Deity' },
+        { src: './assets/images/deviimage.jpg', alt: 'Temple Architecture' },
+        { src: './assets/images/deviimage.jpg', alt: 'Evening Aarti' },
+        { src: './assets/images/deviimage.jpg', alt: 'Festival Celebration' },
+        { src: './assets/images/deviimage.jpg', alt: 'Temple Courtyard' },
+        { src: './assets/images/deviimage.jpg', alt: 'Devotees Gathering' },
+        { src: './assets/images/deviimage.jpg', alt: 'Sacred Lamp' },
+        { src: './assets/images/deviimage.jpg', alt: 'Temple Entrance' }
+      ],
+      poojas: [
+        {
+          id: 1,
+          name: 'Guru Pooja',
+          icon: '🙏',
+          description: 'Special pooja dedicated to Guru Deva for wisdom and guidance'
+        },
+        {
+          id: 2,
+          name: 'Pushpanjali',
+          icon: '🌺',
+          description: 'Offering of flowers to the deity with devotional prayers'
+        },
+        {
+          id: 3,
+          name: 'Ganapathy Homam',
+          icon: '🕉️',
+          description: 'Sacred fire ritual dedicated to Lord Ganapathy'
+        },
+        {
+          id: 4,
+          name: 'Archana',
+          icon: '🔱',
+          description: 'Chanting of divine names and mantras'
+        },
+        {
+          id: 5,
+          name: 'Poomudal',
+          icon: '💐',
+          description: 'Traditional flower offering ceremony'
+        },
+        {
+          id: 6,
+          name: 'Abhishekam',
+          icon: '🪔',
+          description: 'Sacred bathing ceremony of the deity'
+        }
+      ],
+      events: [
+        {
+          id: 1,
+          name: 'Navarathri',
+          image: './assets/images/deviimage.jpg',
+          description: 'Nine-day festival celebrating Goddess Durga with special poojas and cultural programs'
+        },
+        {
+          id: 2,
+          name: 'Vishu',
+          image: './assets/images/vishukani.png',
+          description: 'Malayalam New Year celebration with Vishukkani and special offerings'
+        },
+        {
+          id: 3,
+          name: 'Thiruvathira',
+          image: './assets/images/deviimage.jpg',
+          description: 'Festival dedicated to Lord Shiva with traditional dance and rituals'
+        },
+        {
+          id: 4,
+          name: 'Annual Utsavam',
+          image: './assets/images/deviimage.jpg',
+          description: 'Grand annual festival with processions, cultural programs and special ceremonies'
+        }
+      ]
+    }
+  },
+  computed: {
+    displayedImages() {
+      return this.showAllImages ? this.galleryImages : this.galleryImages.slice(0, 6);
+    }
+  },
+  methods: {
+    openLightbox(index) {
+      this.currentImageIndex = index;
+      this.lightboxOpen = true;
+      document.body.style.overflow = 'hidden';
+    },
+    closeLightbox() {
+      this.lightboxOpen = false;
+      document.body.style.overflow = 'auto';
+    },
+    nextImage() {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.galleryImages.length;
+    },
+    prevImage() {
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.galleryImages.length) % this.galleryImages.length;
+    }
+  }
+}
+</script>
+
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  padding: 20px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.om-icon {
+  width: 40px;
+  height: 40px;
+  filter: brightness(-9) invert(1);
+}
+
+.logo h1 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.nav-links a:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 600px;
+  background: linear-gradient(rgba(139, 0, 0, 0.7), rgba(139, 0, 0, 0.7)),
+              url('./assets/images/deviimage.jpg') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 40px;
+}
+
+.decorative-border {
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #FFD700, transparent);
+  margin: 20px auto;
+}
+
+.temple-name-english {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 2px;
+}
+
+.location {
+  font-size: 1.8rem;
+  color: #FFD700;
+  margin-top: 10px;
+}
+
+/* Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.section-header h2 {
+  font-size: 2.5rem;
+  color: #8B0000;
+  position: relative;
+}
+
+.decorative-line {
+  width: 100px;
+  height: 2px;
+}
+
+/* About Section */
+.about {
+  padding: 80px 0;
+  background: #FFF9F0;
+}
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.about-text p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: justify;
+  line-height: 1.8;
+}
+
+/* Timings Section */
+.timings {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  color: white;
+}
+
+.timings .section-header h2 {
+  color: white;
+}
+
+.timings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.timing-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  border: 2px solid rgba(255,255,255,0.2);
+  transition: transform 0.3s;
+}
+
+.timing-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255,255,255,0.15);
+}
+
+.timing-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.timing-card h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.time {
+  font-size: 1.5rem;
+  color: #FFD700;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.description {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Poojas Section */
+.poojas {
+  padding: 80px 0;
+  background: white;
+}
+
+.poojas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.pooja-card {
+  background: linear-gradient(135deg, #FFF9F0 0%, #FFE4CC 100%);
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 2px solid #FFD700;
+}
+
+.pooja-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(139, 0, 0, 0.2);
+}
+
+.pooja-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.pooja-card h3 {
+  color: #8B0000;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.pooja-card p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Gallery Section */
+.gallery {
+  padding: 80px 0;
+  background: #FFF9F0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  cursor: pointer;
+  aspect-ratio: 4/3;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(139, 0, 0, 0.9), transparent);
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+}
+
+.gallery-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.gallery-actions {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.view-more-btn {
+  background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  color: white;
+  border: none;
+  padding: 15px 50px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 5px 20px rgba(139, 0, 0, 0.3);
+}
+
+.view-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(139, 0, 0, 0.4);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.lightbox-content {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.lightbox-close:hover {
+  color: #FFD700;
+}
+
+.lightbox-prev,
+.lightbox-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  font-size: 30px;
+  padding: 20px 25px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.lightbox-prev:hover,
+.lightbox-next:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-prev {
+  left: 30px;
+}
+
+.lightbox-next {
+  right: 30px;
+}
+
+.lightbox-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.3rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 15px 30px;
+  border-radius: 30px;
+}
+
+/* Events Section */
+.events {
+  padding: 80px 0;
+  background: white;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+.event-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.event-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.1);
+}
+
+.event-content {
+  padding: 25px;
+}
+
+.event-content h3 {
+  color: #8B0000;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.event-content p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Contact Section */
+.contact {
+  padding: 80px 0;
+  background: #FFF9F0;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 50px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  border-left: 4px solid #8B0000;
+}
+
+.contact-icon {
+  font-size: 2.5rem;
+}
+
+.contact-item h3 {
+  color: #8B0000;
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+}
+
+.contact-item p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.map-placeholder {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Footer */
+.footer {
+  background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+  color: white;
+  text-align: center;
+  padding: 30px 0;
+}
+
+.footer p {
+  margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .logo h1 {
+    font-size: 1.2rem;
+  }
+
+  .temple-name-english {
+    font-size: 2rem;
+  }
+
+  .location {
+    font-size: 1.3rem;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header {
+    flex-direction: column;
+  }
+
+  .decorative-line {
+    display: none;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .lightbox-prev {
+    left: 10px;
+  }
+
+  .lightbox-next {
+    right: 10px;
+  }
+
+  .lightbox-close {
+    right: 20px;
+    top: 20px;
+    font-size: 40px;
+  }
+}
+</style>
