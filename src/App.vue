@@ -23,7 +23,9 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-section">
+    <section id="home" class="hero-section" @mousemove="onHeroMouseMove">
+      <!-- 3D WebGL Particle Canvas -->
+      <canvas ref="heroCanvas" class="hero-canvas"></canvas>
       <div class="hero-container">
         <div class="hero-content">
           <h1 class="hero-title">PREJITH T S</h1>
@@ -468,6 +470,174 @@ const PUBLIC_KEY = "vXbEqDiEeJw0Q8jCb";
 // Reactive state
 const scrollProgress = ref(0);
 const isMenuOpen = ref(false);
+
+// ── 3D WebGL Particle System ──────────────────────────────────────────────────
+const heroCanvas = ref(null);
+let glCtx = null;
+let glParticles = [];
+let glAnimId = null;
+let glRotX = 0;
+let glRotY = 0;
+let glTargetRotX = 0;
+let glTargetRotY = 0;
+const GL_COUNT = 320;
+const GL_SPREAD = 260;
+const GL_LINK_DIST = 90;
+const GL_FOV = 500;
+
+const glColors = [
+  [0, 255, 136],    // #00ff88
+  [0, 136, 255],    // #0088ff
+  [255, 0, 102],    // #ff0066
+  [120, 80, 255],   // purple
+];
+
+function mkParticle() {
+  // Random point on a sphere shell + some interior fill
+  const theta = Math.random() * Math.PI * 2;
+  const phi   = Math.acos(2 * Math.random() - 1);
+  const r     = GL_SPREAD * (0.4 + Math.random() * 0.6);
+  const col   = glColors[Math.floor(Math.random() * glColors.length)];
+  return {
+    ox: r * Math.sin(phi) * Math.cos(theta),
+    oy: r * Math.sin(phi) * Math.sin(theta),
+    oz: r * Math.cos(phi),
+    x: 0, y: 0, z: 0,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    vz: (Math.random() - 0.5) * 0.3,
+    size: Math.random() * 2.2 + 0.8,
+    col,
+    alpha: 0.5 + Math.random() * 0.5,
+  };
+}
+
+function project(px, py, pz, cx, cy) {
+  const scale = GL_FOV / (GL_FOV + pz);
+  return {
+    sx: cx + px * scale,
+    sy: cy + py * scale,
+    scale,
+  };
+}
+
+function rotatePoint(px, py, pz, rx, ry) {
+  // Rotate around Y axis
+  const cosY = Math.cos(ry), sinY = Math.sin(ry);
+  let nx = px * cosY + pz * sinY;
+  let nz = -px * sinY + pz * cosY;
+  // Rotate around X axis
+  const cosX = Math.cos(rx), sinX = Math.sin(rx);
+  let ny = py * cosX - nz * sinX;
+  nz      = py * sinX + nz * cosX;
+  return { nx, ny, nz };
+}
+
+const initHeroGL = () => {
+  const canvas = heroCanvas.value;
+  if (!canvas) return;
+  const resize = () => {
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  };
+  resize();
+  window.addEventListener('resize', resize);
+  glCtx = canvas.getContext('2d');
+  glParticles = Array.from({ length: GL_COUNT }, mkParticle);
+  glParticles.forEach(p => { p.x = p.ox; p.y = p.oy; p.z = p.oz; });
+  glLoop();
+};
+
+const glLoop = () => {
+  const canvas = heroCanvas.value;
+  if (!canvas || !glCtx) return;
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+
+  // Smooth rotation lerp
+  glRotX += (glTargetRotX - glRotX) * 0.04;
+  glRotY += (glTargetRotY - glRotY) * 0.04;
+  // Slow auto-spin
+  glTargetRotY += 0.0015;
+
+  glCtx.clearRect(0, 0, W, H);
+
+  // Move particles slightly
+  glParticles.forEach(p => {
+    p.ox += p.vx; p.oy += p.vy; p.oz += p.vz;
+    const dist = Math.sqrt(p.ox*p.ox + p.oy*p.oy + p.oz*p.oz);
+    if (dist > GL_SPREAD) {
+      p.vx *= -1; p.vy *= -1; p.vz *= -1;
+    }
+  });
+
+  // Project all particles
+  const projected = glParticles.map(p => {
+    const { nx, ny, nz } = rotatePoint(p.ox, p.oy, p.oz, glRotX, glRotY);
+    const { sx, sy, scale } = project(nx, ny, nz, cx, cy);
+    return { sx, sy, scale, nz, col: p.col, size: p.size, alpha: p.alpha };
+  });
+
+  // Draw connection lines first (depth sorted)
+  for (let i = 0; i < projected.length; i++) {
+    for (let j = i + 1; j < projected.length; j++) {
+      const a = projected[i], b = projected[j];
+      const dx = a.sx - b.sx, dy = a.sy - b.sy;
+      const d2d = Math.sqrt(dx*dx + dy*dy);
+      if (d2d < GL_LINK_DIST) {
+        const fade = (1 - d2d / GL_LINK_DIST) * 0.35;
+        const [r, g, bl] = a.col;
+        glCtx.beginPath();
+        glCtx.moveTo(a.sx, a.sy);
+        glCtx.lineTo(b.sx, b.sy);
+        glCtx.strokeStyle = `rgba(${r},${g},${bl},${fade})`;
+        glCtx.lineWidth = 1;
+        glCtx.stroke();
+      }
+    }
+  }
+
+  // Draw particles
+  projected.forEach(p => {
+    const [r, g, bl] = p.col;
+    const radius = Math.max(0.5, p.size * p.scale * 2);
+    const depthFade = 0.3 + 0.7 * Math.min(1, (p.nz + GL_SPREAD) / (GL_SPREAD * 2));
+    const finalAlpha = p.alpha * depthFade;
+
+    // Glow
+    const grd = glCtx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, radius * 3);
+    grd.addColorStop(0, `rgba(${r},${g},${bl},${finalAlpha})`);
+    grd.addColorStop(1, `rgba(${r},${g},${bl},0)`);
+    glCtx.beginPath();
+    glCtx.arc(p.sx, p.sy, radius * 3, 0, Math.PI * 2);
+    glCtx.fillStyle = grd;
+    glCtx.fill();
+
+    // Core dot
+    glCtx.beginPath();
+    glCtx.arc(p.sx, p.sy, radius, 0, Math.PI * 2);
+    glCtx.fillStyle = `rgba(${r},${g},${bl},${Math.min(1, finalAlpha * 1.8)})`;
+    glCtx.fill();
+  });
+
+  glAnimId = requestAnimationFrame(glLoop);
+};
+
+const onHeroMouseMove = (e) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const mx = (e.clientX - rect.left) / rect.width  - 0.5;
+  const my = (e.clientY - rect.top)  / rect.height - 0.5;
+  glTargetRotX = my * 0.8;
+  glTargetRotY += mx * 0.03;
+};
+
+const destroyHeroGL = () => {
+  if (glAnimId) cancelAnimationFrame(glAnimId);
+  glAnimId = null;
+  glCtx = null;
+  glParticles = [];
+};
+// ─────────────────────────────────────────────────────────────────────────────
 const isSubmitting = ref(false);
 
 // Form data
@@ -631,11 +801,13 @@ const observeElements = () => {
 onMounted(() => {
   window.addEventListener("scroll", updateScrollProgress);
   setTimeout(observeElements, 100);
+  setTimeout(initHeroGL, 50);
   initEmailJS();
 });
 
 onUnmounted(() => {
   window.removeEventListener("scroll", updateScrollProgress);
+  destroyHeroGL();
 });
 </script>
 
@@ -822,6 +994,16 @@ button:disabled:hover {
   background: radial-gradient(ellipse at center, #111111 0%, #000000 70%);
   position: relative;
   overflow: hidden;
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
 }
 
 .hero-section::before {

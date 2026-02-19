@@ -1,0 +1,168 @@
+{
+  "name": "Prejith T S",
+  "title": "Flutter Developer",
+  "tagline": "Building the future, one app at a time.",
+  "summary": "Accomplished Mobile Application Developer with 4+ years of experience, specializing in Flutter framework and delivering exceptional user experiences across diverse industry domains.",
+  "contact": {
+    "email": "prejithts102@gmail.com",
+    "phone": "+91 8086991977",
+    "linkedin": "https://www.linkedin.com/in/prejith-ts-a3ab7a1b2"
+  },
+  "skills": [
+    {
+      "name": "Flutter",
+      "level": 95,
+      "color": "#00ff88"
+    },
+    {
+      "name": "Dart",
+      "level": 90,
+      "color": "#0088ff"
+    },
+    {
+      "name": "Firebase",
+      "level": 80,
+      "color": "#ff6600"
+    },
+    {
+      "name": "RESTful API",
+      "level": 85,
+      "color": "#ff0066"
+    },
+    {
+      "name": "BLoC / Provider",
+      "level": 85,
+      "color": "#8800ff"
+    },
+    {
+      "name": "Google Maps SDK",
+      "level": 80,
+      "color": "#00ccff"
+    },
+    {
+      "name": "OpenAI API",
+      "level": 75,
+      "color": "#00ff44"
+    },
+    {
+      "name": "Payment Gateway",
+      "level": 80,
+      "color": "#ffcc00"
+    },
+    {
+      "name": "Git",
+      "level": 85,
+      "color": "#ff4400"
+    },
+    {
+      "name": "WebSockets",
+      "level": 78,
+      "color": "#44ffcc"
+    }
+  ],
+  "experience": [
+    {
+      "title": "Lead Developer",
+      "company": "Gigvoc Technologies Pvt. Ltd.",
+      "period": "Apr 2024 – Present",
+      "projects": [
+        "OhYes App",
+        "OhYes Partner App",
+        "MyQPad",
+        "OhYes AI"
+      ]
+    },
+    {
+      "title": "Flutter Developer",
+      "company": "LEOPARD TECH LABS Pvt. Ltd.",
+      "period": "Sep 2021 – Mar 2024",
+      "projects": [
+        "Styloop",
+        "Pakt Food Delivery",
+        "Parambikulam",
+        "Whale Shark Monitor"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "OhYes App",
+      "category": "Service Booking",
+      "description": "Online booking platform for home services (plumbing, gardening, pest control).",
+      "tech": [
+        "Flutter",
+        "Firebase",
+        "Payment Gateway"
+      ],
+      "color": "#00ff88"
+    },
+    {
+      "name": "Parambikulam",
+      "category": "Government",
+      "description": "Ticket booking & asset management with offline support for a government national park.",
+      "tech": [
+        "Flutter",
+        "Offline Storage",
+        "Government API"
+      ],
+      "color": "#0088ff"
+    },
+    {
+      "name": "Whale Shark Monitor",
+      "category": "Conservation",
+      "description": "Marine conservation app for monitoring whale shark populations with ML & GPS.",
+      "tech": [
+        "Flutter",
+        "ML",
+        "GPS"
+      ],
+      "color": "#ff0066"
+    },
+    {
+      "name": "Pakt Food Delivery",
+      "category": "Food & Delivery",
+      "description": "Real-time food ordering from nearby restaurants with live tracking.",
+      "tech": [
+        "Flutter",
+        "Google Maps",
+        "WebSockets"
+      ],
+      "color": "#8800ff"
+    },
+    {
+      "name": "Styloop",
+      "category": "E-Commerce",
+      "description": "Fashion e-commerce platform available on the Play Store.",
+      "tech": [
+        "Flutter",
+        "REST API",
+        "Payment Gateway"
+      ],
+      "color": "#ff6600"
+    },
+    {
+      "name": "OhYes AI",
+      "category": "AI Integration",
+      "description": "AI-powered customer support assistant using OpenAI GPT.",
+      "tech": [
+        "Flutter",
+        "OpenAI API",
+        "Firebase"
+      ],
+      "color": "#00ccff"
+    }
+  ],
+  "education": [
+    {
+      "degree": "Bachelor of Information Technology",
+      "institution": "APJ Abdul Kalam Technological University",
+      "college": "Amal Jyothi College of Engineering",
+      "period": "2017 – 2021"
+    },
+    {
+      "degree": "Higher Secondary Education",
+      "institution": "St. Mary's HSS",
+      "period": "2015 – 2017"
+    }
+  ]
+}
