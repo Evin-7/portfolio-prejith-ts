@@ -4,7 +4,9 @@ import { createApp } from 'vue'
 // import App from './AppAivonixTech2.vue'
 // import App from './Apptemple.vue'
 // import App from './App.vue'
-import App from './Portfolio3D.vue'
+// import App from './Portfolio3D.vue'
+import App from './BinoeyPofolio.vue'
+
 import './assets/main.css'
 
 createApp(App).mount('#app')
