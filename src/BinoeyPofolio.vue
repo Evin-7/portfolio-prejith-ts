@@ -25,7 +25,7 @@
         <h1 class="bp-hero__name">
           <span class="bp-hero__name-line">BINOY P BENNY</span>
         </h1>
-        <p class="bp-hero__subtitle">Branding · Advertising · Photography</p>
+        <p class="bp-hero__subtitle">Crafting Identity. Creating Impact. Capturing Stories</p>
         <button class="bp-hero__cta" @click="scrollTo('work')">
           <span>View Work</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
@@ -100,7 +100,7 @@
     <section id="about" class="bp-about">
       <div class="bp-about__left">
         <div class="bp-about__img-wrap">
-          <img src="./assets/binoey/portrait.png" alt="Binoey" class="bp-about__img" />
+          <img src="./assets/binoey/brandingpic.jpeg" alt="Binoey" class="bp-about__img" />
           <div class="bp-about__img-border"></div>
         </div>
       </div>
@@ -140,7 +140,7 @@
 
     <!-- Featured / Full-Bleed Image -->
     <section class="bp-feature">
-      <img src="./assets/binoey/night.png" alt="Feature" class="bp-feature__img" />
+      <img src="./assets/binoey/work4.jpeg" alt="Feature" class="bp-feature__img" />
       <div class="bp-feature__caption">
         <span class="bp-feature__caption-text">Photography — one of my passions.</span>
       </div>
@@ -174,20 +174,22 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import heroImg   from './assets/binoey/hero.png'
-import portraitImg from './assets/binoey/portrait.png'
-import urbanImg  from './assets/binoey/urban.png'
-import nightImg  from './assets/binoey/night.png'
+import heroImg        from './assets/binoey/hero.png'
+import brandingImg    from './assets/binoey/branding.jpeg'
+import advertisingImg from './assets/binoey/advertising.jpeg'
+import socialMediaImg from './assets/binoey/social_media.jpeg'
+import photographyImg from './assets/binoey/photography.jpeg'
+import nightImg       from './assets/binoey/night.png'
 
 const cursor    = ref({ x: -100, y: -100 })
 const scrolled  = ref(false)
 const hoveredCard = ref(null)
 
 const workSeries = [
-  { title: 'Branding',       sub: 'Identity & Logo Design',     img: portraitImg, wide: false },
-  { title: 'Advertising',    sub: 'Campaign Visuals & Posters', img: urbanImg,    wide: true  },
-  { title: 'Social Media',   sub: 'Digital Content Design',     img: nightImg,    wide: false },
-  { title: 'Photography',    sub: 'Visual Storytelling',        img: heroImg,     wide: false },
+  { title: 'Darkness',     sub: 'Where Light Defines Form',      img: brandingImg,    wide: false },
+  { title: 'Not Just Seen. Felt',  sub: 'Like Theyyam commands attention',  img: advertisingImg, wide: true  },
+  { title: 'Content That Connects', sub: 'In a world that scrolls fast,real stories make people stop',      img: socialMediaImg, wide: false },
+  { title: 'Stories Brewed on the Streets.',  sub: 'Every shop has a struggle.Every cup carries a dream.I capture life as it happens',         img: photographyImg, wide: false },
 ]
 
 const experiences = [
